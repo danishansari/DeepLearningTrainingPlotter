@@ -68,6 +68,8 @@ def Plot(x, y, z, p="all", refresh=0):
             j += 1
         i += 2
 
+    return
+
   # Add new points to polt
   if x >= 0 and y >= 0 and z >= 0:
     if p == "loss":
