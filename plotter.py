@@ -33,8 +33,7 @@ def Plot(x, y, z, p="all", refresh=0):
     plt.title('%s training-plot' % frameWork)
     plt.ion()
     plt.xlabel('Iterations')
-
-
+    plt.tick_params(axis='y', which='both', labelleft='off', labelright='on')
     ax = plt.subplot(111)
     xr = np.arange(0)
     lStr = ["acc", "train-loss", "val-loss"]
@@ -43,10 +42,9 @@ def Plot(x, y, z, p="all", refresh=0):
       lStr[0] = "IOUx10"
       nParams = 2
 
-    for i in xrange(nParams):
+    for i in range(nParams):
       ax.plot(xr, i * xr, label='%s' % lStr[i], color=clr[i])
       
-
     # Shrink current axis's height by 10% on the bottom
     box = ax.get_position()
     ax.set_position([box.x0, box.y0 + box.height * 0.05,
@@ -152,15 +150,31 @@ def readAndPlot(inpFile):
       ref = (prev_itern == -1)
 
       # update interval and refersh flag
-      if last_itern >= 500 and interv < 50:
+      if last_itern >= 100 and interv < 25:
+        interv = 25
+        ref = 25
+      elif last_itern >= 500 and interv < 50:
         interv = 50
         ref = 50
+      elif last_itern >= 750 and interv < 75:
+        interv = 75
+        ref = 75
       elif last_itern >= 1000 and interv < 100:
         interv = 100
         ref = 100
+      elif last_itern >= 5000 and interv < 200:
+        interv = 200
+        ref = 200
       elif last_itern >= 10000 and interv < 1000:
         interv = 1000
         ref = 1000
+      elif last_itern >= 50000 and interv < 5000:
+        interv = 5000
+        ref = 5000
+      elif last_itern >= 100000 and interv < 10000:
+        interv = 10000
+        ref = 10000
+
 
       #plt.axis([first_itern-100, last_itern+200, 0.0, int(min(last_IOU, avg_loss)+1)])
       plt.axis([first_itern-100, last_itern+200, 0.0, 1.0])
@@ -191,4 +205,3 @@ def main():
 
 if __name__=="__main__":
   main()
-
