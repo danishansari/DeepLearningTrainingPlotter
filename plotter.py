@@ -39,7 +39,8 @@ def Plot(x, y, z, p="all", refresh=0):
     lStr = ["acc", "train-loss", "val-loss"]
     nParams = 3
     if frameWork == "YOLO":
-      lStr[0] = "IOUx10"
+      lStr[0] = "IOU"
+      lStr[1] = "loss x10"
       nParams = 2
 
     for i in range(nParams):
